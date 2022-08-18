@@ -11,9 +11,9 @@ import java.awt.font.ShapeGraphicAttribute;
 @Controller
 public class GreetingController {
 
-    @GetMapping("/hello")
+    @GetMapping("/index")
     public String test(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Model model) {
         model.addAttribute("name", name);
-        return "greeting";
+        return "index";
     }
 }
