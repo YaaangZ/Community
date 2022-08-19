@@ -7,6 +7,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 
 /**
+ * Git App
+ * HomePage URL: http://community.yang
+ * Authorization callback URL: http://localhost:8080/callback
+ */
+
+/**
  * 引导类
  */
 @SpringBootApplication
