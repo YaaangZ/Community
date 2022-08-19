@@ -10,6 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 
+/**
+ * github授权访问流程：
+ * 1. 本机调用OAUTH接口访问github
+ * 2. github返回redirect_uri并且携带code
+ * 3. 本机收到code之后调用github的access token并且携带code
+ * 4. github返回token
+ * 5. 本机用access token调用github的user api
+ * 6. github返回user信息
+*/
+
 @Controller
 public class AuthController {
 
