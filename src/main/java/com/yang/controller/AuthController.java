@@ -4,6 +4,7 @@ import com.yang.dto.AccessTokenDto;
 import com.yang.dto.GithubUser;
 import com.yang.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,15 +27,24 @@ public class AuthController {
     @Autowired
     private GithubProvider githubProvider;
 
+    @Value("${github.Client.id}")
+    private String ClientId;
+
+    @Value("${github.Client.secret}")
+    private String ClientSecret;
+
+    @Value("${github.Redirect.uri}")
+    private String RedirectUri;
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state) throws IOException {
         AccessTokenDto accessTokenDto = new AccessTokenDto();
-        accessTokenDto.setClient_id("202bcdd7698d4ea65460");
+        accessTokenDto.setClient_id(ClientId);
         accessTokenDto.setCode(code);
-        accessTokenDto.setRedirect_uri("http://localhost:8080/callback");
+        accessTokenDto.setRedirect_uri(RedirectUri);
         accessTokenDto.setState(state);
-        accessTokenDto.setClient_secret("112ab4e98d7f25dc97ef70a3e9e16121723dfa73");
+        accessTokenDto.setClient_secret(ClientSecret);
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
         GithubUser userInfo = githubProvider.getUserInfo(accessToken);
         System.out.println(userInfo.getName());
