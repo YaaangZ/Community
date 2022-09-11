@@ -1,7 +1,9 @@
 package com.yang.controller;
 
+import com.yang.Model.User;
 import com.yang.dto.AccessTokenDto;
 import com.yang.dto.GithubUser;
+import com.yang.mapper.UserMapper;
 import com.yang.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * github授权访问流程：
@@ -19,7 +23,7 @@ import java.io.IOException;
  * 4. github返回token
  * 5. 本机用access token调用github的user api
  * 6. github返回user信息
-*/
+ */
 
 @Controller
 public class AuthController {
@@ -36,9 +40,13 @@ public class AuthController {
     @Value("${github.Redirect.uri}")
     private String RedirectUri;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state") String state) throws IOException {
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request) throws IOException {
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setClient_id(ClientId);
         accessTokenDto.setCode(code);
@@ -47,7 +55,21 @@ public class AuthController {
         accessTokenDto.setClient_secret(ClientSecret);
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
         GithubUser userInfo = githubProvider.getUserInfo(accessToken);
-        System.out.println(userInfo.getName());
-        return "index";
+
+        if (userInfo != null) {
+            User user = new User();
+            user.setId(1);
+            user.setAccountId(String.valueOf(userInfo.getId()));
+            user.setName(userInfo.getName());
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtCreate(user.getGmtCreate());
+            userMapper.insert(user);
+            request.getSession().setAttribute("userInfo", userInfo);
+            return "redirect:/";
+        } else {
+            return "redirect:/";
+        }
+//        return "index";
     }
 }
