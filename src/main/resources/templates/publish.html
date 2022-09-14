@@ -18,32 +18,12 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Community</span>
-                <!--                <span class="icon-bar"></span>-->
-                <!--                <span class="icon-bar"></span>-->
-                <!--                <span class="icon-bar"></span>-->
             </button>
             <a class="navbar-brand" href="#">Community</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--            <ul class="nav navbar-nav">-->
-            <!--                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
-            <!--                <li><a href="#">Link</a></li>-->
-            <!--                <li class="dropdown">-->
-            <!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"-->
-            <!--                       aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-            <!--                    <ul class="dropdown-menu">-->
-            <!--                        <li><a href="#">Action</a></li>-->
-            <!--                        <li><a href="#">Another action</a></li>-->
-            <!--                        <li><a href="#">Something else here</a></li>-->
-            <!--                        <li role="separator" class="divider"></li>-->
-            <!--                        <li><a href="#">Separated link</a></li>-->
-            <!--                        <li role="separator" class="divider"></li>-->
-            <!--                        <li><a href="#">One more separated link</a></li>-->
-            <!--                    </ul>-->
-            <!--                </li>-->
-            <!--            </ul>-->
             <form class="navbar-form navbar-left">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
@@ -51,9 +31,6 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <!--                <li>-->
-                <!--                    <a href="https://github.com/login/oauth/authorize?client_id=202bcdd7698d4ea65460&redirect_uri=http://localhost:8080/callback&scope=user&state=1">Login</a>-->
-                <!--                </li>-->
                 <li class="dropdown" th:if="${session.userInfo != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">My <span class="caret"></span></a>
@@ -61,8 +38,6 @@
                         <li><a href="#">Message</a></li>
                         <li><a href="#">Personal profile</a></li>
                         <li><a href="#">Logout</a></li>
-                        <!--                        <li role="separator" class="divider"></li>-->
-                        <!--                        <li><a href="#">Separated link</a></li>-->
                     </ul>
                 </li>
                 <li th:if="${session.userInfo == null}">
@@ -71,66 +46,50 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-
-
-<!--    <div class="container-fluid">-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">-->
-<!--                <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Publish</h2>-->
-<!--                <hr>-->
-<!--                <form action="">-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="title">Question title (simple description) : </label>-->
-<!--                        <input type="text" class="form-control" id="title" name="title" placeholder="Question title...">-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="title">Question supplement : </label>-->
-<!--                        <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>-->
-<!--                    </div>-->
-<!--                    <div class="form-group">-->
-<!--                        <label for="title">Add tags</label>-->
-<!--                        <input type="text" class="form-control" id="tag" name="tag" placeholder="select tags...">-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-success">Publish</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">-->
-<!--                <h3>How to publish questions ??</h3>-->
-<!--                Question title: no more than 25 words...<br>-->
-<!--                Question supplement: Perfect your content details...<br>-->
-<!--                Choose tags: choose one or more tags that most relevant to your questions, plz remember: no more than 10 words...<br>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
 </nav>
+
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Publish</h2>
             <hr>
-            <form action="">
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">Question title (simple description) : </label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Question title...">
+                    <input type="text" class="form-control" id="title" th:value="${title}" name="title" placeholder="Question title...">
                 </div>
                 <div class="form-group">
-                    <label for="title">Question supplement : </label>
-                    <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                    <label for="description">Question supplement : </label>
+                    <textarea name="description" id="description" th:value="${description}" class="form-control" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="title">Add tags</label>
-                    <input type="text" class="form-control" id="tag" name="tag" placeholder="select tags...">
+                    <label for="tag">Add tags</label>
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="select tags...">
                 </div>
-                <button type="submit" class="btn btn-success btn-publish">Publish</button>
+
+                <div class="container-fluid main ">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                 th:text="${error}"
+                                 th:if="${error != null}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                Publish
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>How to publish questions ??</h3>
             Question title: no more than 25 words...<br>
             Question supplement: Perfect your content details...<br>
-            Choose tags: choose one or more tags that most relevant to your questions, plz remember: no more than 10 words...<br>
+            Choose tags: choose one or more tags that most relevant to your questions, plz remember: no more than 10
+            words...<br>
         </div>
     </div>
 </div>
