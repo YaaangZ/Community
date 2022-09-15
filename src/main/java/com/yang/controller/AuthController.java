@@ -63,12 +63,13 @@ public class AuthController {
             // 将用户信息存入数据库
             User user = new User();
             String token = UUID.randomUUID().toString();
-            user.setId(1);
+//            user.setId(1);
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setName(userInfo.getName());
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtCreate(user.getGmtCreate());
+            user.setPhoto_url(userInfo.getPhoto_url());
             userMapper.insert(user);
 
             // 将token放入cookie中
