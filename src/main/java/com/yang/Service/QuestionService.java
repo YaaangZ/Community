@@ -5,6 +5,7 @@ import com.yang.Model.User;
 import com.yang.dto.QuestionDto;
 import com.yang.mapper.QuestionMapper;
 import com.yang.mapper.UserMapper;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+//@Log4j
 @Service
 public class QuestionService {
 
