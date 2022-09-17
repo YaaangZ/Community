@@ -74,7 +74,6 @@ public class PublishController {
             return "publish";
         }
         Question question = new Question();
-//        question.setId(1);
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
