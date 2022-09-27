@@ -31,9 +31,7 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String string = response.body().string();
-            String[] split1 = string.split("&");
-            String token_string = split1[0];
-            String token = token_string.split("=")[1];
+            String token = string.split("&")[0].split("=")[1];
             return token;
 
         } catch (IOException e) {
@@ -50,9 +48,12 @@ public class GithubProvider {
      */
     public GithubUser getUserInfo(String accessToken) throws IOException {
         OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder()
+//                .url("https://api.github.com/user")
+//                .header("Authorization", "token " + accessToken)
+//                .build();
         Request request = new Request.Builder()
                 .url("https://api.github.com/user?access_token=" + accessToken)
-//                .header("Authorization", "token" + accessToken)
                 .build();
         Response response = client.newCall(request).execute();
         String string = response.body().string();

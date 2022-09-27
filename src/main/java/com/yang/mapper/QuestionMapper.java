@@ -1,10 +1,11 @@
 package com.yang.mapper;
 
 import com.yang.Model.Question;
-import com.yang.dto.QuestionDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface QuestionMapper {
             "values (#{title}, #{description}, #{gmt_create}, #{gmt_modified}, #{customer_id}, #{comment_volume}, #{read_volume}, #{like_volume}, #{tag})")
     void create(Question question);
 
-    @Select("select * from tb_question")
-    List<Question> list();
+    @Select("select * from tb_question limit #{offset}, #{size}")
+    List<Question> list(@Param(value = "offset") Integer offset, Integer size);
+
+    @Select("select count(1) from tb_question")
+    Integer count();
 }

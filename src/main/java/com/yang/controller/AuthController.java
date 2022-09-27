@@ -68,7 +68,7 @@ public class AuthController {
             user.setName(userInfo.getName());
             user.setToken(token);
             user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtCreate(user.getGmtCreate());
+            user.setGmtModified(user.getGmtCreate());
             user.setPhoto_url(userInfo.getPhoto_url());
             userMapper.insert(user);
 
