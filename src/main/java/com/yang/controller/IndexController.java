@@ -45,7 +45,7 @@ public class IndexController {
                 }
             }
         }
-//        PageDto pagedto = new PageDto();
+
         PageDto pageDtoList = questionService.list(page, size);
         model.addAttribute("pageDtoList", pageDtoList);
         model.addAttribute("name", name);

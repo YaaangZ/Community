@@ -24,9 +24,19 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public PageDto list(Integer page, Integer size) {
+        PageDto pageDtos = new PageDto();
+        Integer totalCount = questionMapper.count();
+        pageDtos.setPagination(totalCount, page, size);
+
+        if (page < 1) {
+            page = 1;
+        }
+        if (page > pageDtos.getTotalPage()) {
+            page = pageDtos.getTotalPage();
+        }
+
         Integer offset = size * (page - 1);
         List<Question> questions = questionMapper.list(offset, size);
-        PageDto pageDtos = new PageDto();
         List<QuestionDto> questionDtoList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.findByid(question.getCustomer_id());
@@ -37,8 +47,7 @@ public class QuestionService {
             questionDtoList.add(questionDto);
         }
         pageDtos.setQuestions(questionDtoList);
-        Integer totalCount = questionMapper.count();
-        pageDtos.setPagination(totalCount, page, size);
+
         return pageDtos;
     }
 }

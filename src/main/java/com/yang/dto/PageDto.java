@@ -17,17 +17,20 @@ public class PageDto<T> {
     private boolean showFirstPage;
     private boolean showNext;
     private boolean showLastPage;
-    private Integer page;
+    private Integer page; // 当前页面
     private List<Integer> pages = new ArrayList<>();
+    private Integer totalPage;
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
-        Integer totalPage;
+//        Integer totalPage;
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
         } else {
             totalPage = (totalCount / size) + 1;
         }
 
+
+        this.page = page;
         pages.add(page);
         for (int i = 1; i <= 3; i++) {
             if (page - i > 0) {

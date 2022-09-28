@@ -2,6 +2,8 @@ package com.yang.Model;
 
 import lombok.Data;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Data
 public class Question {
     private Integer id;
