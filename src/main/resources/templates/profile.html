@@ -18,54 +18,54 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span th:text="${sectionName}"></span></h2>
             <hr>
-<!--            <div class="media" th:each="question : ${pageDtoList.questions}">-->
-<!--                <div class="media-left">-->
-<!--                    <a href="#">-->
-<!--                        <img class="media-object image-rounded">-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--                <div class="media-body">-->
-<!--                    <h4 class="media-heading" th:text="${question.title}"></h4>-->
-<!--                    <span th:text="${question.description}"></span><br>-->
-<!--                    <span class="text-desc"><span th:text="${question.comment_volume}"></span> comments .-->
-<!--                        <span th:text="${question.read_volume}"></span> views .-->
-<!--                        &lt;!&ndash;                        <span th:text="${question.gmt_create}"></span> create&ndash;&gt;-->
-<!--                        <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span> create.</span>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="media" th:each="question : ${pageDtoList.questions}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object image-rounded">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span th:text="${question.description}"></span><br>
+                    <span class="text-desc"><span th:text="${question.comment_volume}"></span> comments .
+                        <span th:text="${question.read_volume}"></span> views .
+                        <!--                        <span th:text="${question.gmt_create}"></span> create-->
+                        <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span> create.</span>
+                </div>
+            </div>
 
-<!--            <nav aria-label="Page navigation">-->
-<!--                <ul class="pagination">-->
-<!--                    <li th:if="${pageDtoList.showFirstPage}">-->
-<!--                        <a th:href="@{/(page=1,search=${search},tag=${tag},sort=${sort})}" aria-label="Previous">-->
-<!--                            <span aria-hidden="true">&lt;&lt;</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li th:if="${pageDtoList.showPrevious}">-->
-<!--                        <a th:href="@{/(page=${pageDtoList.page - 1},search=${search},tag=${tag},sort=${sort})}"-->
-<!--                           aria-label="Previous">-->
-<!--                            <span aria-hidden="true">&lt;</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${pageDtoList.showFirstPage}">
+                        <a th:href="@{/(page=1,search=${search},tag=${tag},sort=${sort})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pageDtoList.showPrevious}">
+                        <a th:href="@{/(page=${pageDtoList.page - 1},search=${search},tag=${tag},sort=${sort})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
 
-<!--                    <li th:each="page : ${pageDtoList.pages}" th:class="${pageDtoList.page == page}? 'active' : ''">-->
-<!--                        <a th:href="@{/(page=${page},search=${search},tag=${tag},sort=${sort})}" th:text="${page}"></a>-->
-<!--                    </li>-->
+                    <li th:each="page : ${pageDtoList.pages}" th:class="${pageDtoList.page == page}? 'active' : ''">
+                        <a th:href="@{/(page=${page},search=${search},tag=${tag},sort=${sort})}" th:text="${page}"></a>
+                    </li>
 
-<!--                    <li th:if="${pageDtoList.showNext}">-->
-<!--                        <a th:href="@{/(page=${pageDtoList.page +1 },search=${search},tag=${tag},sort=${sort})}"-->
-<!--                           aria-label="Previous">-->
-<!--                            <span aria-hidden="true">&gt;</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li th:if="${pageDtoList.showLastPage}">-->
-<!--                        <a th:href="@{/(page=${pageDtoList.totalPage},search=${search},tag=${tag},sort=${sort})}"-->
-<!--                           aria-label="Previous">-->
-<!--                            <span aria-hidden="true">&gt;&gt;</span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </nav>-->
+                    <li th:if="${pageDtoList.showNext}">
+                        <a th:href="@{/(page=${pageDtoList.page +1 },search=${search},tag=${tag},sort=${sort})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li th:if="${pageDtoList.showLastPage}">
+                        <a th:href="@{/(page=${pageDtoList.totalPage},search=${search},tag=${tag},sort=${sort})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="list-group section">
