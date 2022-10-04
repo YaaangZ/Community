@@ -100,6 +100,8 @@ public class QuestionService {
         Question question = questionMapper.getById(id);
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question, questionDto);
+        User user = userMapper.findByid(question.getCustomer_id());
+        questionDto.setUser(user);
         return questionDto;
     }
 }
