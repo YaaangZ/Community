@@ -1,6 +1,7 @@
 package com.yang.mapper;
 
 import com.yang.Model.Question;
+import com.yang.dto.QuestionDto;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,7 @@ public interface QuestionMapper {
 
     @Select("select count(1) from tb_question where customer_id = ${userId}")
     Integer countByUserId(@Param("userId") Integer userId);
+
+    @Select("select * from tb_question where id = ${id}")
+    Question getById(@Param("id") Integer id);
 }
