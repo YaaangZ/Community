@@ -2,10 +2,7 @@ package com.yang.mapper;
 
 import com.yang.Model.Question;
 import com.yang.dto.QuestionDto;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -31,4 +28,7 @@ public interface QuestionMapper {
 
     @Select("select * from tb_question where id = ${id}")
     Question getById(@Param("id") Integer id);
+
+    @Update("update tb_question set title = #{title}, description = #{description}, gmt_modified = #{gmt_modified}, tag = #{tag} where id = #{id}")
+    void update(Question question);
 }

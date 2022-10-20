@@ -1,10 +1,7 @@
 package com.yang.mapper;
 
 import com.yang.Model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -16,4 +13,10 @@ public interface UserMapper {
 
     @Select("select * from tb_user where id = #{id}")
     User findByid(@Param("id") Integer id);
+
+    @Select("select * from tb_user where account_id = #{accountId}")
+    User findByAccountId(@Param("accountId")String accountId);
+
+    @Update("update tb_user set name = #{name}, token = #{token}, gmt_modified = #{gmtModified}, photo_url = #{photo_url} where id = #{id}")
+    void update(User user);
 }

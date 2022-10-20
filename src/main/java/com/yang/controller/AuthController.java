@@ -1,6 +1,7 @@
 package com.yang.controller;
 
 import com.yang.Model.User;
+import com.yang.Service.UserService;
 import com.yang.dto.AccessTokenDto;
 import com.yang.dto.GithubUser;
 import com.yang.mapper.UserMapper;
@@ -43,7 +44,7 @@ public class AuthController {
     private String RedirectUri;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -59,18 +60,15 @@ public class AuthController {
         String accessToken = githubProvider.getAccessToken(accessTokenDto);
         GithubUser userInfo = githubProvider.getUserInfo(accessToken);
 
-        if (userInfo != null) {
+        if (userInfo != null && userInfo.getId() != null) {
             // 将用户信息存入数据库
             User user = new User();
             String token = UUID.randomUUID().toString();
-//            user.setId(1);
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setName(userInfo.getName());
             user.setToken(token);
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setPhoto_url(userInfo.getPhoto_url());
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
 
             // 将token放入cookie中
             response.addCookie(new Cookie("token", token));
@@ -80,6 +78,16 @@ public class AuthController {
         } else {
             return "redirect:/";
         }
-//        return "index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().invalidate();
+//        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }
