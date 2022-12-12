@@ -73,7 +73,7 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        question.setCustomer_id(user.getId());
+        question.setCustomerId(user.getId());
         question.setId(id);
 
         questionService.CreateOrUpdate(question);
