@@ -77,7 +77,6 @@ public class PublishController {
         question.setId(id);
 
         questionService.CreateOrUpdate(question);
-//        questionMapper.create(question);
         return "redirect:/";
     }
 }

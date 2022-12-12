@@ -67,7 +67,7 @@ public class AuthController {
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setName(userInfo.getName());
             user.setToken(token);
-            user.setPhoto_url(userInfo.getPhoto_url());
+            user.setPhotoUrl(userInfo.getPhoto_url());
             userService.createOrUpdate(user);
 
             // 将token放入cookie中
