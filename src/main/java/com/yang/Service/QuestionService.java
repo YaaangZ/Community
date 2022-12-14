@@ -1,5 +1,7 @@
 package com.yang.Service;
 
+import com.yang.Exception.errCode;
+import com.yang.Exception.exception;
 import com.yang.Model.Question;
 import com.yang.Model.QuestionExample;
 import com.yang.Model.User;
@@ -112,6 +114,9 @@ public class QuestionService {
 
     public QuestionDto getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null) {
+            throw new exception(errCode.QUESTION_NOT_FOUND);
+        }
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question, questionDto);
         User user = userMapper.selectByPrimaryKey(question.getCustomerId());
@@ -136,7 +141,10 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if (updated != 1) {
+                throw new exception(errCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
