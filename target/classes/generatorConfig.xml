@@ -10,6 +10,7 @@
                         connectionURL="jdbc:h2:~/community"
                         userId="sa"
                         password="123456">
+<!--            <property name="nullCatalogMeansCurrent" value="true"/>-->
         </jdbcConnection>
 
         <javaTypeResolver>

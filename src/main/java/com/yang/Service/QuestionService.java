@@ -7,6 +7,7 @@ import com.yang.Model.QuestionExample;
 import com.yang.Model.User;
 import com.yang.dto.PageDto;
 import com.yang.dto.QuestionDto;
+import com.yang.mapper.QuestionExtMapper;
 import com.yang.mapper.QuestionMapper;
 import com.yang.mapper.UserMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -26,6 +27,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     public PageDto list(Integer page, Integer size) {
         PageDto pageDtos = new PageDto();
@@ -129,6 +133,9 @@ public class QuestionService {
             // create
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setReadVolume(0);
+            question.setCommentVolume(0);
+            question.setLikeVolume(0);
             questionMapper.insert(question);
         } else {
             // update
@@ -146,5 +153,19 @@ public class QuestionService {
                 throw new exception(errCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void incView(Integer id) {
+//        Question question = questionMapper.selectByPrimaryKey(id);
+//        Question updatedQuestion = new Question();
+//        updatedQuestion.setReadVolume(question.getReadVolume() + 1); // why getReadVolume() return null
+//        QuestionExample questionExample = new QuestionExample();
+//        questionExample.createCriteria()
+//                .andIdEqualTo(id);
+//        questionMapper.updateByExampleSelective(updatedQuestion, questionExample);
+        Question question = new Question();
+        question.setId(id);
+        question.setReadVolume(1);
+        questionExtMapper.incView(question);
     }
 }
