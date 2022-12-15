@@ -32,5 +32,6 @@
 
         <table tableName="tb_user" domainObjectName="User"></table>
         <table tableName="tb_question" domainObjectName="Question"></table>
+        <table tableName="tb_comment" domainObjectName="Comment"></table>
     </context>
 </generatorConfiguration>

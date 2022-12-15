@@ -18,10 +18,11 @@
         <result column="LIKE_VOLUME" jdbcType="INTEGER" property="likeVolume"/>
         <result column="TAG" jdbcType="VARCHAR" property="tag"/>
     </resultMap>
-    <update id="incView" parameterType="map">
+    <update id="incView" parameterType="com.yang.Model.Question">
         update TB_QUESTION
         set
         readVolume = readVolume + #{readVolume,jdbcType=INTEGER}
         where id = #{record.id}
+<!--        where id = #{id,jdbcType=INTEGER}-->
     </update>
 </mapper>
