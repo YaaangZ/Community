@@ -72,7 +72,7 @@ public class QuestionService {
         return pageDtos;
     }
 
-    public PageDto list(Integer userId, Integer page, Integer size) {
+    public PageDto list(Long userId, Integer page, Integer size) {
         PageDto pageDtos = new PageDto();
         Integer totalPage;
         QuestionExample questionExample2 = new QuestionExample();
@@ -107,7 +107,6 @@ public class QuestionService {
             User user = userMapper.selectByPrimaryKey(question.getCustomerId());
             QuestionDto questionDto = new QuestionDto();
             BeanUtils.copyProperties(question, questionDto);
-//            questionDto.setId(question.getId());
             questionDto.setUser(user);
             questionDtoList.add(questionDto);
         }
@@ -116,7 +115,7 @@ public class QuestionService {
         return pageDtos;
     }
 
-    public QuestionDto getById(Integer id) {
+    public QuestionDto getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
             throw new exception(errCode.QUESTION_NOT_FOUND);
@@ -155,14 +154,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
-//        Question question = questionMapper.selectByPrimaryKey(id);
-//        Question updatedQuestion = new Question();
-//        updatedQuestion.setReadVolume(question.getReadVolume() + 1); // why getReadVolume() return null
-//        QuestionExample questionExample = new QuestionExample();
-//        questionExample.createCriteria()
-//                .andIdEqualTo(id);
-//        questionMapper.updateByExampleSelective(updatedQuestion, questionExample);
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setReadVolume(1);

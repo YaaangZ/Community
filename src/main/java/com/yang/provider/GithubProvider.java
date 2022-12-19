@@ -1,7 +1,6 @@
 package com.yang.provider;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.yang.dto.AccessTokenDto;
 import com.yang.dto.GithubUser;
 import okhttp3.*;

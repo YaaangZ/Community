@@ -1,6 +1,7 @@
 package com.yang.dto;
 
 import com.yang.Exception.errCode;
+import com.yang.Exception.exception;
 import lombok.Data;
 
 @Data
@@ -19,10 +20,15 @@ public class ResultDto {
         return errorOf(ec.getCode(), ec.getMessage());
     }
 
+    public static ResultDto errorOf(exception e) {
+        return errorOf(e.getCode(), e.getMessage());
+    }
+
     public static ResultDto okOf() {
         ResultDto resultDto = new ResultDto();
         resultDto.setCode(200);
         resultDto.setMessage("request successfully!!");
         return resultDto;
     }
+
 }

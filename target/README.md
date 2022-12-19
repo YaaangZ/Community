@@ -8,3 +8,6 @@ GMT_CREATE BIGINT NOT NULL,
 GMT_MODIFIED BIGINT NOT NULL,
 LIKE_COUNT BIGINT DEFAULT 0
 );
+
+## MYBATIS GENERATOR COMMENT
+mvn -'Dmybatis.generator.overwrite=true mybatis-generator:generate'

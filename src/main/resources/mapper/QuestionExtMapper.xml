@@ -21,8 +21,13 @@
     <update id="incView" parameterType="com.yang.Model.Question">
         update TB_QUESTION
         set
-        readVolume = readVolume + #{readVolume,jdbcType=INTEGER}
-        where id = #{record.id}
-<!--        where id = #{id,jdbcType=INTEGER}-->
+        READ_VOLUME = READ_VOLUME + #{readVolume,jdbcType=INTEGER}
+        where id = #{id}
+    </update>
+    <update id="incCommentCount" parameterType="com.yang.Model.Question">
+        update TB_QUESTION
+        set
+        COMMENT_VOLUME = COMMENT_VOLUME + #{commentVolume,jdbcType=INTEGER}
+        where id = #{id}
     </update>
 </mapper>
