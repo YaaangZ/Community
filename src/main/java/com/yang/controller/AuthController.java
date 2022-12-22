@@ -2,10 +2,9 @@ package com.yang.controller;
 
 import com.yang.Model.User;
 import com.yang.Service.UserService;
-import com.yang.dto.AccessTokenDto;
-import com.yang.dto.GithubUser;
-import com.yang.mapper.UserMapper;
-import com.yang.provider.GithubProvider;
+import com.yang.Dto.AccessTokenDto;
+import com.yang.Dto.GithubUser;
+import com.yang.Provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

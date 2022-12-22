@@ -4,11 +4,10 @@ package com.yang.Advice;
 import com.alibaba.fastjson.JSON;
 import com.yang.Exception.errCode;
 import com.yang.Exception.exception;
-import com.yang.dto.ResultDto;
+import com.yang.Dto.ResultDto;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,8 +1,7 @@
-package com.yang.dto;
+package com.yang.Dto;
 
 import lombok.Data;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.yang.provider;
+package com.yang.Provider;
 
 import com.alibaba.fastjson.JSON;
-import com.yang.dto.AccessTokenDto;
-import com.yang.dto.GithubUser;
+import com.yang.Dto.AccessTokenDto;
+import com.yang.Dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

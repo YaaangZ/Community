@@ -1,9 +1,9 @@
-package com.yang.dto;
+package com.yang.Dto;
 
 import lombok.Data;
 
 @Data
-public class CommentDto {
+public class CommentCreateDto {
     private Long parentId;
     private String content;
     private Integer type;

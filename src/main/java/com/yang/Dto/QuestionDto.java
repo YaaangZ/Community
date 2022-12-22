@@ -1,4 +1,4 @@
-package com.yang.dto;
+package com.yang.Dto;
 
 import com.yang.Model.User;
 import lombok.Data;

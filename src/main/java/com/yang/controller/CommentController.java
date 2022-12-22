@@ -4,9 +4,9 @@ import com.yang.Exception.errCode;
 import com.yang.Model.Comment;
 import com.yang.Model.User;
 import com.yang.Service.CommentService;
-import com.yang.dto.CommentDto;
-import com.yang.dto.ResultDto;
-import com.yang.mapper.CommentMapper;
+import com.yang.Dto.CommentCreateDto;
+import com.yang.Dto.ResultDto;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +23,14 @@ public class CommentController {
 
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public Object post(@RequestBody CommentDto commentDto,
+    public Object post(@RequestBody CommentCreateDto commentDto,
                        HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return ResultDto.errorOf(errCode.NO_LOGIN);
+        }
+        if (commentDto == null || StringUtils.isBlank(commentDto.getContent())) {
+            return ResultDto.errorOf(errCode.CONTENT_IS_EMPTY);
         }
         Comment comment = new Comment();
         comment.setParentId(commentDto.getParentId());

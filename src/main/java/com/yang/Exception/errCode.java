@@ -6,7 +6,8 @@ public enum errCode implements errorCode {
     NO_LOGIN(2003, "haven't login, please login first..."),
     SYS_ERROR(2004, "Oops...there has something wrong with server, try it later!"),
     TYPE_PARAM_WRONG(2005, "the type of comment is wrong or not exist!"),
-    COMMENT_NOT_FOUND(2006, "the comment is not exit...");
+    COMMENT_NOT_FOUND(2006, "the comment is not exit..."),
+    CONTENT_IS_EMPTY(2007, "the content cannot be empty!");
 
     @Override
     public String getMessage() {
