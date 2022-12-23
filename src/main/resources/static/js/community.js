@@ -69,7 +69,7 @@ function collapseComments(e) {
                     var mediaLeftElement = $("<div/>", {
                         "class": "media-left"
                     }).append($("<img/>", {
-                        "class": "media-object img-rounded",
+                        "class": "media-object img-circle",
                         "src": comment.user.photoUrl
                     }));
 

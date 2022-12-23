@@ -5,10 +5,7 @@ import com.yang.Exception.errCode;
 import com.yang.Exception.exception;
 import com.yang.Model.*;
 import com.yang.Dto.CommentDto;
-import com.yang.mapper.CommentMapper;
-import com.yang.mapper.QuestionExtMapper;
-import com.yang.mapper.QuestionMapper;
-import com.yang.mapper.UserMapper;
+import com.yang.mapper.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +31,9 @@ public class CommentService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private CommentExtMapper commentExtMapper;
+
     @Transactional // open events
     public void insert(Comment comment) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
@@ -51,6 +51,10 @@ public class CommentService {
                 throw new exception(errCode.COMMENT_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            Comment parentComment = new Comment();
+            parentComment.setId(comment.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtMapper.incCommentCount(parentComment);
         } else {
             //reply question
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());

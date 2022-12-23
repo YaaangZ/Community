@@ -71,6 +71,10 @@ background-color: white;
     cursor: pointer;
 }
 
+.menu .icon:hover {
+    color: #499ef3;
+}
+
 .menu .active {
     color: #499ef3;
 }
