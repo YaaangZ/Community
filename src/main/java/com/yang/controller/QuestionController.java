@@ -1,5 +1,6 @@
 package com.yang.controller;
 
+import com.yang.Enums.CommentTypeEnum;
 import com.yang.Service.CommentService;
 import com.yang.Service.QuestionService;
 import com.yang.Dto.CommentDto;
@@ -24,7 +25,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDto questionDto = questionService.getById(id);
-        List<CommentDto> commentDtoList = commentService.listByQuestionId(id);
+        List<CommentDto> commentDtoList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
 //        questionService.incView(id);
         model.addAttribute("question", questionDto);
         model.addAttribute("comments", commentDtoList);

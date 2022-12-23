@@ -5,9 +5,10 @@ import com.yang.Exception.exception;
 import lombok.Data;
 
 @Data
-public class ResultDto {
+public class ResultDto<T> {
     private Integer code;
     private String message;
+    private T data;
 
     public static ResultDto errorOf(Integer code, String message) {
         ResultDto resultDto = new ResultDto();
@@ -31,4 +32,11 @@ public class ResultDto {
         return resultDto;
     }
 
+    public static <T> ResultDto okOf(T t) {
+        ResultDto resultDto = new ResultDto();
+        resultDto.setCode(200);
+        resultDto.setMessage("request successfully!!");
+        resultDto.setData(t);
+        return resultDto;
+    }
 }

@@ -52,7 +52,7 @@
                                      th:src="@{community/src/main/resources/static/images/img.jpg}"/>
                             </a>
                         </div>
-                        <div class="media-body">
+                        <div class="media-body" th:id="${'comment-body' + comment.id}">
                             <h5 class="media-heading">
                                 <span th:text="${comment.user.name}"></span>
                             </h5>
@@ -91,16 +91,19 @@
                                                 <span class="pull-right"
                                                       th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
                                             </div>
-<!--                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"-->
-<!--                                                 th:id="${'comment-' + comment.id}">-->
-<!--                                                this is second comment-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse"-->
+                                            <!--                                                 th:id="${'comment-' + comment.id}">-->
+                                            <!--                                                this is second comment-->
+                                            <!--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments">
-                                    <input type="text" class="form-control" placeholder="Reply">
-                                    <button type="button" class="btn btn-success pull-right">Submit</button>
+                                    <input type="text" class="form-control" placeholder="Reply"
+                                           th:id="${'input-' + comment.id}">
+                                    <button type="button" class="btn btn-success pull-right" onclick="comment(this)"
+                                            th:data-id="${comment.id}">Submit
+                                    </button>
                                 </div>
                             </div>
                         </div>

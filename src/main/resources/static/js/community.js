@@ -39,6 +39,12 @@ function comment2target(targetId, type, content) {
     });
 }
 
+function comment(e) {
+    var commentId = e.getAttribute("data-id");
+    var content = $("#input-" + commentId).val();
+    comment2target(commentId, 2, content);
+}
+
 function collapseComments(e) {
     var id = e.getAttribute("data-id");
     var comments = $("#comment-" + id);
@@ -64,7 +70,7 @@ function collapseComments(e) {
                         "class": "media-left"
                     }).append($("<img/>", {
                         "class": "media-object img-rounded",
-                        "src": comment.user.avatarUrl
+                        "src": comment.user.photoUrl
                     }));
 
                     var mediaBodyElement = $("<div/>", {
@@ -91,7 +97,7 @@ function collapseComments(e) {
 
                     subCommentContainer.prepend(commentElement);
                 });
-                //展开二级评论
+                // expand secondary comments
                 comments.addClass("in");
                 // 标记二级评论展开状态
                 e.setAttribute("data-collapse", "in");

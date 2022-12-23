@@ -1,5 +1,7 @@
 package com.yang.controller;
 
+import com.yang.Dto.CommentDto;
+import com.yang.Enums.CommentTypeEnum;
 import com.yang.Exception.errCode;
 import com.yang.Model.Comment;
 import com.yang.Model.User;
@@ -9,12 +11,10 @@ import com.yang.Dto.ResultDto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -42,5 +42,12 @@ public class CommentController {
         comment.setCommentator(user.getId());
         commentService.insert(comment);
         return ResultDto.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
+    public ResultDto<List<CommentDto>> comments(@PathVariable(name = "id") Long id) {
+        List<CommentDto> commentDtos = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDto.okOf(commentDtos);
     }
 }
