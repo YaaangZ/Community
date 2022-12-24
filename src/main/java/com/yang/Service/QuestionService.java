@@ -10,13 +10,16 @@ import com.yang.Dto.QuestionDto;
 import com.yang.mapper.QuestionExtMapper;
 import com.yang.mapper.QuestionMapper;
 import com.yang.mapper.UserMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //@Log4j
 @Service
@@ -55,6 +58,7 @@ public class QuestionService {
 
         Integer offset = size * (page - 1);
         QuestionExample questionExample1 = new QuestionExample();
+        questionExample1.setOrderByClause("GMT_CREATE DESC");
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample1, new RowBounds(offset, size));
 //        questionExample1.createCriteria()
 //                        .andCustomerIdEqualTo()
@@ -159,5 +163,23 @@ public class QuestionService {
         question.setId(id);
         question.setReadVolume(1);
         questionExtMapper.incView(question);
+    }
+
+    public List<QuestionDto> selectRelated(QuestionDto questionDto) {
+        if (StringUtils.isBlank(questionDto.getTag())) {
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(questionDto.getTag(), ',');
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question question = new Question();
+        question.setId(questionDto.getId());
+        question.setTag(regexpTag);
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        List<QuestionDto> questionDtoList = questions.stream().map(q -> {
+            QuestionDto questionDto1 = new QuestionDto();
+            BeanUtils.copyProperties(q, questionDto1);
+            return questionDto1;
+        }).collect(Collectors.toList());
+        return questionDtoList;
     }
 }

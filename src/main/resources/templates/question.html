@@ -25,14 +25,26 @@
                 Publish time: <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd')}"></span> |
                 Views: <span th:text="${question.read_volume}"></span>
             </span>
-                <hr>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a th:href="@{'/publish/'+${question.id}}" class="community-menu">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true">
-                </span>edit
-                </a>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" th:text="${tag}">Info</span>
+                    </span>
+                </div>
+                <div>
+                    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
+                        <a th:href="@{'/publish/'+${question.id}}" class="community-menu">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true">edit</span>
+                        </a>
+                        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
+                    </div>
+                </div>
             </div>
 
             <!--display reply-->
@@ -45,12 +57,10 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
-                                <!--                            <img class="media-object img-circle"-->
-                                <!--                                 th:src="${comment.user.photoUrl}">-->
                                 <img class="media-object img-circle" th:if="${comment.user.photoUrl} ne null"
                                      th:src="${comment.user.photoUrl}"/>
                                 <img class="media-object img-circle" th:if="${comment.user.photoUrl} eq null"
-                                     th:src="@{community/src/main/resources/static/images/img.jpg}"/>
+                                     th:src="@{/images/img.jpg}"/>
                             </a>
                         </div>
                         <div class="media-body" th:id="${'comment-body-' + comment.id}">
@@ -62,7 +72,7 @@
                                 <span class="glyphicon glyphicon-thumbs-up icon"></span>
                                 <span th:data-id="${comment.id}"
                                       onclick="collapseComments(this)">
-                                    <span  class="glyphicon glyphicon-comment icon"></span>
+                                    <span class="glyphicon glyphicon-comment icon"></span>
                                     <span th:text="${comment.commentCount}"></span>
                                 </span>
                                 <span class="pull-right"
@@ -91,7 +101,11 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-circle">
+                            <img class="media-object img-circle"/>
+<!--                            <img class="media-object img-circle" th:if="${comment.user.photoUrl} ne null"-->
+<!--                                 th:src="${comment.user.photoUrl}"/>-->
+<!--                            <img class="media-object img-circle" th:if="${comment.user.photoUrl} eq null"-->
+<!--                                 th:src="@{/images/img.jpg}"/>-->
                         </a>
                     </div>
                     <div class="media-body">
@@ -126,6 +140,11 @@
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>Related question</h4>
+                <ul class="question-related">
+                    <li th:each="related : ${relatedQuestions}">
+                        <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

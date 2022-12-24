@@ -1,9 +1,12 @@
 package com.yang.controller;
 
+import com.yang.Cache.TagCache;
+import com.yang.Dto.TagDto;
 import com.yang.Model.Question;
 import com.yang.Model.User;
 import com.yang.Service.QuestionService;
 import com.yang.Dto.QuestionDto;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +30,13 @@ public class PublishController {
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
         model.addAttribute("id", question.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -59,6 +64,12 @@ public class PublishController {
 
         if (tag == null || tag == "") {
             model.addAttribute("error", "the tag should not be empty");
+            return "publish";
+        }
+
+        String isvalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(isvalid)) {
+            model.addAttribute("error", "the tag is illegal" + " " + isvalid);
             return "publish";
         }
 
