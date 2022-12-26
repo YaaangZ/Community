@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -33,6 +34,8 @@ public class ProfileController {
         if ("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "Message Center");
+//            PageDto pageDtoList = questionService.list(user.getId(), page, size);
+//            model.addAttribute("pageDtoList", pageDtoList);
         } else if ("replies".equals(action)) {
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "My replies");

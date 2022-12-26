@@ -71,7 +71,7 @@ public class QuestionService {
             questionDto.setUser(user);
             questionDtoList.add(questionDto);
         }
-        pageDtos.setQuestions(questionDtoList);
+        pageDtos.setData(questionDtoList);
 
         return pageDtos;
     }
@@ -83,7 +83,6 @@ public class QuestionService {
         questionExample2.createCriteria()
                 .andCustomerIdEqualTo(userId);
         Integer totalCount = (int) questionMapper.countByExample(questionExample2);
-//        Integer totalCount = questionMapper.countByUserId(userId);
 
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -100,12 +99,11 @@ public class QuestionService {
 
         pageDtos.setPagination(totalPage, page);
 
-        Integer offset = (size * (page - 1)) + 5;
+        Integer offset = (size * (page - 1));
         QuestionExample questionExample1 = new QuestionExample();
         questionExample1.createCriteria()
                 .andCustomerIdEqualTo(userId);
         List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample1, new RowBounds(offset, size));
-//        List<Question> questions = questionMapper.listByUserId(userId, offset, size);
         List<QuestionDto> questionDtoList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCustomerId());
@@ -114,7 +112,7 @@ public class QuestionService {
             questionDto.setUser(user);
             questionDtoList.add(questionDto);
         }
-        pageDtos.setQuestions(questionDtoList);
+        pageDtos.setData(questionDtoList);
 
         return pageDtos;
     }

@@ -11,7 +11,8 @@ import java.util.List;
 
 @Data
 public class PageDto<T> {
-    private List<T> questions;
+    //    private List<T> questions;
+    private List<T> data;
     private boolean showPrevious;
     private boolean showFirstPage;
     private boolean showNext;
