@@ -1,5 +1,6 @@
 package com.yang.mapper;
 
+import com.yang.Dto.QuestionQueryDto;
 import com.yang.Model.Question;
 import com.yang.Model.QuestionExample;
 import java.util.List;
@@ -102,4 +103,5 @@ public interface QuestionMapper {
      * @mbg.generated Tue Dec 27 17:53:10 GMT 2022
      */
     int updateByPrimaryKey(Question record);
+
 }

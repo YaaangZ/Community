@@ -39,9 +39,13 @@
                     $(function () {
                         editormd.markdownToHTML("question-view", {});
                     });
+
+
+
+
                 </script>
 
-<!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>-->
+                <!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>-->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
@@ -55,7 +59,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
                         <a th:href="@{'/publish/'+${question.id}}" class="community-menu">
-<!--                           th:if="${session.user != null && session.user.id == question.customer_id}">-->
+                            <!--                           th:if="${session.user != null && session.user.id == question.customer_id}">-->
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true">edit</span>
                         </a>
                         <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 question-sp">
@@ -79,7 +83,7 @@
                                      th:src="${comment.user.photoUrl}"/>
                                 <img class="media-object img-circle"
                                      th:if="${comment.user.photoUrl} eq null"
-                                     th:src="@{/images/img.jpg}"/>
+                                     th:src="@{/images/default-avatar.png}"/>
                             </a>
                         </div>
                         <div class="media-body" th:id="${'comment-body-' + comment.id}">
@@ -121,16 +125,13 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-circle"/>
-<!--                            <img class="media-object img-circle" th:if="${comment.user.photoUrl} ne null"-->
-                            <!--                                 th:src="${comment.user.photoUrl}"/>-->
-                            <!--                            <img class="media-object img-circle" th:if="${comment.user.photoUrl} eq null"-->
-                            <!--                                 th:src="@{/images/img.jpg}"/>-->
+                            <img class="media-object img-circle"
+                                 th:src="${session.user.photoUrl != null ? session.user.photoUrl : '/images/default-avatar.png'}"/>
                         </a>
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading">
-                            <span th:text="${question.user.name}"></span>
+                            <span th:text="${session.user.name}"></span>
                         </h5>
                     </div>
                 </div>
@@ -148,12 +149,14 @@
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-circle">
+                            <img class="media-object img-circle"
+                                 th:src="${question.user.photoUrl != null ? question.user.photoUrl : '/images/default-avatar.png'}">
                         </a>
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading">
-                            <span th:text="${question.user.name}"></span>
+<!--                            <span th:text="${question.user.name}"></span>-->
+                            <span th:text="${question.user.name != null ? question.user.name : 'unknown user'}"></span>
                         </h5>
                     </div>
                 </div>

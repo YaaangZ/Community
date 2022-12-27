@@ -18,6 +18,7 @@
             window.localStorage.removeItem("closable");
         }
     }
+
 </script>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
@@ -30,14 +31,15 @@
             <div class="media" th:each="question : ${pageDtoList.data}">
                 <div class="media-left">
                     <a href="#">
-                        <img class="media-object image-rounded">
+                        <img class="media-object image-rounded"
+                             th:src="${session.user.photoUrl != null ? session.user.photoUrl : '/images/default-avatar.png'}">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a th:href="@{'/question/' + ${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span><br>
+                    <!--                    <span th:text="${question.description}"></span><br>-->
                     <span class="text-desc"><span th:text="${question.comment_volume}"></span> comments .
                         <span th:text="${question.read_volume}"></span> views .
                         <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span> create.</span>

@@ -24,7 +24,7 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-rounded"
-                                 th:src="${question.user.photoUrl}">
+                                 th:src="${question.user.photoUrl != null ? question.user.photoUrl : '/images/default-avatar.png'}">
                         </a>
                     </div>
                     <div class="media-body">
@@ -49,7 +49,7 @@
                     <div class="media-body">
                         <p class="media-heading">
                             <span th:text="${notification.notifierName +' ' + notification.typeName + ' '}"></span>
-<!--                            <span th:text="${notification.notifierName +' ' + 'reply your' + ' '}"></span>-->
+                            <!--                            <span th:text="${notification.notifierName +' ' + 'reply your' + ' '}"></span>-->
                             <a th:href="@{'/notification/'+ ${notification.id}}"
                                th:text="${notification.outerTitle}">
                             </a>

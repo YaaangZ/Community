@@ -21,11 +21,13 @@ public class IndexController {
     public String test(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
                        Model model, HttpServletRequest request,
                        @RequestParam(name = "page", defaultValue = "1") Integer page,
-                       @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                       @RequestParam(name = "size", defaultValue = "5") Integer size,
+                       @RequestParam(name = "search", required = false) String search) {
 
-        PageDto pageDtoList = questionService.list(page, size);
+        PageDto pageDtoList = questionService.list(search, page, size);
         model.addAttribute("pageDtoList", pageDtoList);
         model.addAttribute("name", name);
+        model.addAttribute("search", search);
         return "index";
     }
 }

@@ -1,5 +1,6 @@
 package com.yang.Service;
 
+import com.yang.Dto.QuestionQueryDto;
 import com.yang.Exception.errCode;
 import com.yang.Exception.exception;
 import com.yang.Model.Question;
@@ -34,12 +35,19 @@ public class QuestionService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
-    public PageDto list(Integer page, Integer size) {
+    public PageDto list(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, ' ');
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
         PageDto pageDtos = new PageDto();
 
         Integer totalPage;
         QuestionExample questionExample = new QuestionExample();
-        Integer totalCount = (int) questionMapper.countByExample(questionExample);
+        QuestionQueryDto questionQueryDto = new QuestionQueryDto();
+        questionQueryDto.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDto);
 
         if (totalCount % size == 0) {
             totalPage = totalCount / size;
@@ -59,7 +67,9 @@ public class QuestionService {
         Integer offset = size * (page - 1);
         QuestionExample questionExample1 = new QuestionExample();
         questionExample1.setOrderByClause("GMT_CREATE DESC");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample1, new RowBounds(offset, size));
+        questionQueryDto.setSize(size);
+        questionQueryDto.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDto);
 //        questionExample1.createCriteria()
 //                        .andCustomerIdEqualTo()
         List<QuestionDto> questionDtoList = new ArrayList<>();
