@@ -1,8 +1,11 @@
 package com.yang.mapper;
 
+import com.yang.Dto.NotificationDto;
 import com.yang.Model.Notification;
 import com.yang.Model.NotificationExample;
 import java.util.List;
+
+import com.yang.Model.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
@@ -102,4 +105,5 @@ public interface NotificationMapper {
      * @mbg.generated Mon Dec 26 19:06:51 GMT 2022
      */
     int updateByPrimaryKey(Notification record);
+
 }

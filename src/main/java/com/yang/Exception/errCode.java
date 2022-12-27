@@ -7,7 +7,9 @@ public enum errCode implements errorCode {
     SYS_ERROR(2004, "Oops...there has something wrong with server, try it later!"),
     TYPE_PARAM_WRONG(2005, "the type of comment is wrong or not exist!"),
     COMMENT_NOT_FOUND(2006, "the comment is not exit..."),
-    CONTENT_IS_EMPTY(2007, "the content cannot be empty!");
+    CONTENT_IS_EMPTY(2007, "the content cannot be empty!"),
+    READ_NOTIFICATION_FAIL(2008, "Oops, This doesn't seem to be your reply..."),
+    NOTIFICATION_NOT_FOUND(2009, "there is no notification yet~ ");
 
     @Override
     public String getMessage() {

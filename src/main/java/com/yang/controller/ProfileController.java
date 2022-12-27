@@ -1,6 +1,7 @@
 package com.yang.controller;
 
 import com.yang.Model.User;
+import com.yang.Service.NotificationService;
 import com.yang.Service.QuestionService;
 import com.yang.Dto.PageDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ProfileController {
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action") String action,
@@ -34,15 +39,14 @@ public class ProfileController {
         if ("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "Message Center");
-//            PageDto pageDtoList = questionService.list(user.getId(), page, size);
-//            model.addAttribute("pageDtoList", pageDtoList);
+            PageDto pageDtoList = questionService.list(user.getId(), page, size);
+            model.addAttribute("pageDtoList", pageDtoList);
         } else if ("replies".equals(action)) {
+            PageDto pageDtoList = notificationService.list(user.getId(), page, size);
             model.addAttribute("section", "replies");
+            model.addAttribute("pageDtoList", pageDtoList);
             model.addAttribute("sectionName", "My replies");
         }
-
-        PageDto pageDtoList = questionService.list(user.getId(), page, size);
-        model.addAttribute("pageDtoList", pageDtoList);
         return "profile";
     }
 }

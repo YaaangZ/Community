@@ -1,6 +1,8 @@
 package com.yang.Service;
 
 import com.yang.Enums.CommentTypeEnum;
+import com.yang.Enums.NotificationStatusEnum;
+import com.yang.Enums.NotificationTypeEnum;
 import com.yang.Exception.errCode;
 import com.yang.Exception.exception;
 import com.yang.Model.*;
@@ -34,8 +36,11 @@ public class CommentService {
     @Autowired
     private CommentExtMapper commentExtMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
     @Transactional // open events
-    public void insert(Comment comment) {
+    public void insert(Comment comment, User commentator) {
         if (comment.getParentId() == null || comment.getParentId() == 0) {
             throw new exception(errCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -50,11 +55,16 @@ public class CommentService {
             if (dbComment == null) {
                 throw new exception(errCode.COMMENT_NOT_FOUND);
             }
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if (question == null) {
+                throw new exception(errCode.QUESTION_NOT_FOUND);
+            }
             commentMapper.insert(comment);
             Comment parentComment = new Comment();
             parentComment.setId(comment.getParentId());
             parentComment.setCommentCount(1);
             commentExtMapper.incCommentCount(parentComment);
+            createNotify(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT, question.getId());
         } else {
             //reply question
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -64,7 +74,21 @@ public class CommentService {
             commentMapper.insert(comment);
             question.setCommentVolume(1);
             questionExtMapper.incCommentCount(question);
+            createNotify(comment, question.getCustomerId(), commentator.getName(), question.getTitle(), NotificationTypeEnum.REPLY_QUESTION, question.getId());
         }
+    }
+
+    private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationType.getType());
+        notification.setOuterid(outerId);
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDto> listByTargetId(Long id, CommentTypeEnum type) {
