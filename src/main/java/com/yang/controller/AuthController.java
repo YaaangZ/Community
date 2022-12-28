@@ -5,6 +5,7 @@ import com.yang.Service.UserService;
 import com.yang.Dto.AccessTokenDto;
 import com.yang.Dto.GithubUser;
 import com.yang.Provider.GithubProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,7 @@ import java.util.UUID;
  */
 
 @Controller
+@Slf4j
 public class AuthController {
 
     @Autowired
@@ -75,6 +77,7 @@ public class AuthController {
             request.getSession().setAttribute("userInfo", userInfo);
             return "redirect:/";
         } else {
+            log.error("callback get github error, {}", userInfo);
             return "redirect:/";
         }
     }

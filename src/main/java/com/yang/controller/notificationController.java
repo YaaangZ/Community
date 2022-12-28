@@ -4,6 +4,7 @@ import com.yang.Dto.NotificationDto;
 import com.yang.Enums.NotificationTypeEnum;
 import com.yang.Model.User;
 import com.yang.Service.NotificationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Controller
 public class notificationController {
     @Autowired
@@ -23,6 +25,7 @@ public class notificationController {
         User user = (User) request.getSession().getAttribute("user");
 
         if (user == null) {
+            log.error("user is not login");
             return "redirect:/";
         }
         NotificationDto notificationDto = notificationService.read(id, user);

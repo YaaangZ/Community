@@ -1,5 +1,7 @@
 package com.yang.controller;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class errorController implements ErrorController {
@@ -36,11 +39,13 @@ public class errorController implements ErrorController {
         Integer statusCode = (Integer) request
                 .getAttribute("javax.servlet.error.status_code");
         if (statusCode == null) {
+            log.error("statusCode is null");
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
         try {
             return HttpStatus.valueOf(statusCode);
         } catch (Exception ex) {
+            log.error("getStatus error, {}", ex);
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }

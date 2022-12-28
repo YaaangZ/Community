@@ -8,6 +8,7 @@ import com.yang.Model.User;
 import com.yang.Service.CommentService;
 import com.yang.Dto.CommentCreateDto;
 import com.yang.Dto.ResultDto;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -27,9 +29,11 @@ public class CommentController {
                        HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
+            log.error("comment error user didnt login, {}", (Object) null);
             return ResultDto.errorOf(errCode.NO_LOGIN);
         }
         if (commentDto == null || StringUtils.isBlank(commentDto.getContent())) {
+            log.error("comment error that content is empty, {}", commentDto);
             return ResultDto.errorOf(errCode.CONTENT_IS_EMPTY);
         }
         Comment comment = new Comment();
