@@ -43,6 +43,8 @@
 
 
 
+
+
                 </script>
 
                 <!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>-->
@@ -126,7 +128,9 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-circle"
-                                 th:src="${session.user.photoUrl != null ? session.user.photoUrl : '/images/default-avatar.png'}"/>
+                                 th:src="${session.user.photoUrl == null ? '/images/default-avatar.png' : session.user.photoUrl}"/>
+                            <!--                                 th:src="${'/images/default-avatar.png'}"/>-->
+
                         </a>
                     </div>
                     <div class="media-body">
@@ -155,7 +159,7 @@
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading">
-<!--                            <span th:text="${question.user.name}"></span>-->
+                            <!--                            <span th:text="${question.user.name}"></span>-->
                             <span th:text="${question.user.name != null ? question.user.name : 'unknown user'}"></span>
                         </h5>
                     </div>
