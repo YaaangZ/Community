@@ -27,13 +27,15 @@ public class IndexController {
                        Model model, HttpServletRequest request,
                        @RequestParam(name = "page", defaultValue = "1") Integer page,
                        @RequestParam(name = "size", defaultValue = "5") Integer size,
-                       @RequestParam(name = "search", required = false) String search) {
+                       @RequestParam(name = "search", required = false) String search,
+                       @RequestParam(name = "tag", required = false) String tag) {
 
-        PageDto pageDtoList = questionService.list(search, page, size);
+        PageDto pageDtoList = questionService.list(search, tag, page, size);
         List<String> tags = hotTagCache.getList();
         model.addAttribute("pageDtoList", pageDtoList);
         model.addAttribute("name", name);
         model.addAttribute("search", search);
+        model.addAttribute("tag", tag);
         model.addAttribute("tags", tags);
         return "index";
     }

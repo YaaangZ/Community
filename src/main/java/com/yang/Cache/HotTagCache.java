@@ -13,13 +13,13 @@ public class HotTagCache {
     private List<String> list = new ArrayList<>();
 
     public void updateTags(Map<String, Integer> tags) {
-        int max = 10;
+        int max = 5;
         PriorityQueue<HotTagDto> priorityQueue = new PriorityQueue<>(max);
         tags.forEach((name, priority) -> {
             HotTagDto hotTagDto = new HotTagDto();
             hotTagDto.setName(name);
             hotTagDto.setPriority(priority);
-            if (priorityQueue.size() < 10) {
+            if (priorityQueue.size() < max) {
                 priorityQueue.add(hotTagDto);
             } else {
                 HotTagDto lowest = priorityQueue.peek();
