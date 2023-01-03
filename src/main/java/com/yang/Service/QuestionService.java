@@ -124,6 +124,11 @@ public class QuestionService {
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCustomerId());
             QuestionDto questionDto = new QuestionDto();
+            questionDto.setComment_volume(question.getCommentVolume());
+            questionDto.setGmt_create(question.getGmtCreate());
+            questionDto.setGmt_modified(question.getGmtModified());
+            questionDto.setRead_volume(question.getReadVolume());
+            questionDto.setLike_volume(question.getLikeVolume());
             BeanUtils.copyProperties(question, questionDto);
             questionDto.setUser(user);
             questionDtoList.add(questionDto);

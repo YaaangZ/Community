@@ -121,4 +121,11 @@ public class CommentService {
         }).collect(Collectors.toList());
         return commentDTOS;
     }
+
+    public void incLike(Long id) {
+        Comment comment = new Comment();
+        comment.setId(id);
+        comment.setLikeCount(1L);
+        commentExtMapper.incLike(comment);
+    }
 }
