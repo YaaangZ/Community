@@ -42,9 +42,9 @@
                         <a th:href="@{'/question/' + ${question.id}}" th:text="${question.title}"></a>
                     </h4>
                     <!--                    <span th:text="${question.description}"></span><br>-->
-                    <span class="text-desc"><span th:text="${question.comment_volume}"></span> comments .
-                        <span th:text="${question.read_volume}"></span> views .
-                        <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span> create.</span>
+                    <span class="text-desc"><span th:text="${question.comment_volume}"></span> comments |
+                        <span th:text="${question.read_volume}"></span> views |
+                        <span th:text="${#dates.format(question.gmt_create,'yyyy-MM-dd HH:mm')}"></span> created </span>
                 </div>
             </div>
             <nav aria-label="Page navigation">

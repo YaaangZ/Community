@@ -2,12 +2,14 @@ package com.yang.Service;
 
 import com.yang.Dto.NotificationDto;
 import com.yang.Dto.PageDto;
+import com.yang.Dto.QuestionDto;
 import com.yang.Enums.NotificationStatusEnum;
 import com.yang.Enums.NotificationTypeEnum;
 import com.yang.Exception.errCode;
 import com.yang.Exception.exception;
 import com.yang.Model.*;
 import com.yang.mapper.NotificationMapper;
+import com.yang.mapper.QuestionMapper;
 import com.yang.mapper.UserMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +28,9 @@ public class NotificationService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionMapper questionMapper;
 
     public PageDto list(Long userId, Integer page, Integer size) {
         PageDto<NotificationDto> pageDtos = new PageDto<>();
@@ -68,7 +73,10 @@ public class NotificationService {
             notificationDto.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
             notificationDtoList.add(notificationDto);
         }
+
+
         pageDtos.setData(notificationDtoList);
+
         return pageDtos;
     }
 

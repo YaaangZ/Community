@@ -44,7 +44,7 @@ public class QuestionService {
         PageDto pageDtos = new PageDto();
 
         Integer totalPage;
-        QuestionExample questionExample = new QuestionExample();
+//        QuestionExample questionExample = new QuestionExample();
         QuestionQueryDto questionQueryDto = new QuestionQueryDto();
         questionQueryDto.setSearch(search);
         questionQueryDto.setTag(tag);
@@ -81,6 +81,10 @@ public class QuestionService {
             BeanUtils.copyProperties(question, questionDto);
 //            questionDto.setId(question.getId());
             questionDto.setUser(user);
+            questionDto.setGmt_create(question.getGmtCreate());
+            questionDto.setGmt_modified(question.getGmtModified());
+            questionDto.setComment_volume(question.getCommentVolume());
+            questionDto.setRead_volume(question.getReadVolume());
             questionDtoList.add(questionDto);
         }
         pageDtos.setData(questionDtoList);
@@ -135,6 +139,10 @@ public class QuestionService {
             throw new exception(errCode.QUESTION_NOT_FOUND);
         }
         QuestionDto questionDto = new QuestionDto();
+        questionDto.setGmt_create(question.getGmtCreate());
+        questionDto.setGmt_modified(question.getGmtModified());
+        questionDto.setRead_volume(question.getReadVolume());
+        questionDto.setComment_volume(question.getCommentVolume());
         BeanUtils.copyProperties(question, questionDto);
         User user = userMapper.selectByPrimaryKey(question.getCustomerId());
         questionDto.setUser(user);
