@@ -51,18 +51,24 @@ public class PublishController {
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
+        model.addAttribute("tags", TagCache.get());
 
-        if (title == null || title == "") {
+        if (StringUtils.isBlank(title)) {
             model.addAttribute("error", "the title should not be empty");
             return "publish";
         }
 
-        if (description == null || description == "") {
+        if (StringUtils.length(title) > 50) {
+            model.addAttribute("error", "Title up to 50 characters");
+            return "publish";
+        }
+
+        if (StringUtils.isBlank(description)) {
             model.addAttribute("error", "the description should not be empty");
             return "publish";
         }
 
-        if (tag == null || tag == "") {
+        if (StringUtils.isBlank(tag)) {
             model.addAttribute("error", "the tag should not be empty");
             return "publish";
         }

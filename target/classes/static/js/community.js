@@ -111,6 +111,7 @@ function showSelectTag() {
     $("#select-tag").show();
 }
 
+
 function selectTag(e) {
     var value = e.getAttribute("data-tag");
     var previous = $("#tag").val();
@@ -139,4 +140,15 @@ function selectTag(e) {
     else {
         $("#tag").val(value);
     }
+}
+
+function thumbComments(e) {
+    var thumbId = e.getAttribute("id");
+    var url = e.getAttribute("data-id");
+    var tags =$("#"+thumbId).children("#thumbChildElement");
+
+    $.getJSON("/thumb/" + url ,function(data) {
+        //span标签赋值用html,表单一般用val
+        tags.html(data);
+    });
 }
