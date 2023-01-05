@@ -37,6 +37,10 @@
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="1e51929e-49c6-42a5-b599-f24c50467860" />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="1e51929e-49c6-42a5-b599-f24c50467860" dataset="mybatis.tb_brand" active-filter-id="" />
+    <filter-actions connection-id="1e51929e-49c6-42a5-b599-f24c50467860" dataset="zhao22200037.candidate" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>

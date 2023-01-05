@@ -72,8 +72,11 @@ public class AuthController {
             userService.createOrUpdate(user);
 
             // 将token放入cookie中
-            response.addCookie(new Cookie("token", token));
-
+            Cookie cookie = new Cookie("token", token);
+            response.addCookie(cookie);
+            cookie.setMaxAge(60 * 60 * 24 * 30 * 6);
+            cookie.setPath("/");
+            response.addCookie(cookie);
             request.getSession().setAttribute("userInfo", userInfo);
             return "redirect:/";
         } else {
