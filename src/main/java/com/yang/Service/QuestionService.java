@@ -72,8 +72,6 @@ public class QuestionService {
         questionQueryDto.setSize(size);
         questionQueryDto.setPage(offset);
         List<Question> questions = questionExtMapper.selectBySearch(questionQueryDto);
-//        questionExample1.createCriteria()
-//                        .andCustomerIdEqualTo()
         List<QuestionDto> questionDtoList = new ArrayList<>();
         for (Question question : questions) {
             User user = userMapper.selectByPrimaryKey(question.getCustomerId());

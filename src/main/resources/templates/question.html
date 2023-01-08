@@ -117,6 +117,8 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub_comments"
                                  th:id="${'comment-' + comment.id}">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments">
+                                    <img class="media-object img-circle"
+                                         th:src="${session.user.photoUrl == null ? '/images/default-avatar.png' : session.user.photoUrl}"/>
                                     <input type="text" class="form-control" placeholder="Reply"
                                            th:id="${'input-' + comment.id}">
                                     <button type="button" class="btn btn-success pull-right"
