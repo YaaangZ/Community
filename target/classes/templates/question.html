@@ -41,14 +41,6 @@
                     });
 
 
-
-
-
-
-
-
-
-
                 </script>
 
                 <!--                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>-->
@@ -97,7 +89,6 @@
                                 <span th:text="${comment.user.name}"></span>
                             </h5>
                             <div th:text="${comment.content}"></div>
-
                             <div class="menu">
                                  <span th:id="${'thumb-'+comment.id}"
                                        th:data-id="${comment.id+'/'+session.user.id+'/'+question.id}"
@@ -113,6 +104,10 @@
                                 <span class="pull-right"
                                       th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}">
                                 </span>
+                                     <a th:href="@{'/question/' + 'delete/' + ${comment.id}}"> <span
+                                             th:if="${comment.commentator eq session.user.id}"
+                                             class="glyphicon glyphicon-remove">delete</span></a>
+                                 </span>
                             </div>
 
 
@@ -189,7 +184,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="footer" th:insert="~{footer :: foot}"></div>
+
+    <div class="footer" th:insert="~{footer :: foot}"></div>
 </body>
 </html>
