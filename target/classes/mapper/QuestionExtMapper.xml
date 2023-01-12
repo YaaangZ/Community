@@ -19,6 +19,7 @@
         READ_VOLUME = READ_VOLUME + #{readVolume,jdbcType=INTEGER}
         where id = #{id}
     </update>
+
     <update id="incCommentCount" parameterType="com.yang.Model.Question">
         update TB_QUESTION
         set

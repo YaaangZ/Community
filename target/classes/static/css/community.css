@@ -176,3 +176,8 @@ background-color: white;
     margin: 5px 5px;
     display: inline-block;
 }
+
+.btn-delete {
+    margin-left: 1px;
+    font-size: 10px;
+}
