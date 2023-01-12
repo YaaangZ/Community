@@ -83,10 +83,6 @@ background-color: white;
     cursor: pointer;
 }
 
-.menu .icon:hover {
-    color: #499ef3;
-}
-
 .menu .active {
     color: #499ef3;
 }
@@ -180,4 +176,8 @@ background-color: white;
 .btn-delete {
     margin-left: 1px;
     font-size: 10px;
+}
+
+.delete {
+    color: #999;
 }
