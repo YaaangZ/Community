@@ -27,6 +27,13 @@
         where id = #{id}
     </update>
 
+    <update id="descCommentCount" parameterType="com.yang.Model.Question">
+        update TB_QUESTION
+        set
+        COMMENT_VOLUME = COMMENT_VOLUME - #{commentVolume,jdbcType=INTEGER}
+        where id = #{id}
+    </update>
+
     <select id="selectRelated" parameterType="com.yang.Model.Question" resultMap="BaseResultMap">
         select
         *
